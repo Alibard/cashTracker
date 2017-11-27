@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">CashTracker</string>
+    <string name="title_activity_maps">Map</string>
+    <string name="fui_progress_dialog_signing_up">Creating your shiny new account...</string>
+    <string name="navigation_drawer_open">1</string>
+    <string name="navigation_drawer_close">2</string>
+    <string name="drawer_open">11</string>
+    <string name="drawer_close">22</string>
+    <string name="title_activity_main2">Main2Activity</string>
+
+    <string name="action_settings">Settings</string>
+</resources>

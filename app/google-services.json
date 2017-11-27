@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "1061980047447",
+    "firebase_url": "https://cashtracker-c07a3.firebaseio.com",
+    "project_id": "cashtracker-c07a3",
+    "storage_bucket": "cashtracker-c07a3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1061980047447:android:6b84709481b8b940",
+        "android_client_info": {
+          "package_name": "com.tm.alibard.cashtracker"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1061980047447-a7c9mv6qk72gkb4gp12rnea4cttdhrud.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tm.alibard.cashtracker",
+            "certificate_hash": "03923472b923205663036e97e32ec36112311cf6"
+          }
+        },
+        {
+          "client_id": "1061980047447-7m94kcidqdfrtescnvtfqnsicu9t67o3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tm.alibard.cashtracker",
+            "certificate_hash": "06108833ea9110cdd181a2198062f8a1abbfbc5a"
+          }
+        },
+        {
+          "client_id": "1061980047447-qud6tmkjrd8vntk06sntouj6rk8hteei.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyByhv47XQ0PuLHVjhZa1qb6SWUm1qwREiw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1061980047447-qud6tmkjrd8vntk06sntouj6rk8hteei.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

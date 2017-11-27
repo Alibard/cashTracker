@@ -1,0 +1,76 @@
+apply plugin: 'com.android.application'
+
+apply plugin: 'kotlin-android'
+
+apply plugin: 'kotlin-android-extensions'
+apply from: "artifacts.gradle"
+
+def sprint = 1
+def lastCommitNumber = getLastCommitNumber()
+
+android {
+    compileSdkVersion 26
+    buildToolsVersion '27.0.1'
+    defaultConfig {
+        applicationId "com.tm.alibard.cashtracker"
+        minSdkVersion 21
+        targetSdkVersion 26
+        versionCode lastCommitNumber
+        versionName "0.$sprint.$versionCode"
+        resConfigs "auto"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+def support_version = "26.0.1"
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "com.android.support:appcompat-v7:$support_version"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+    implementation "com.android.support:recyclerview-v7:$support_version"
+    compile 'com.firebaseui:firebase-ui-auth:3.1.0'
+    compile 'com.google.firebase:firebase-core:11.4.2'
+
+    compile 'com.android.support:appcompat-v7:26.1.0'
+
+    // Reactive extension
+    implementation 'io.reactivex.rxjava2:rxandroid:2.0.1'
+    // Because RxAndroid releases are few and far between, it is recommended you also
+    // explicitly depend on RxJava's latest version for bug fixes and new features.
+    implementation 'io.reactivex.rxjava2:rxjava:2.0.7'
+
+    def dagger_version = "2.9"
+    compile "com.google.dagger:dagger:$dagger_version"
+    kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+    compile 'com.github.bumptech.glide:glide:4.0.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
+
+    implementation 'de.hdodenhof:circleimageview:2.1.0'
+    def epoxy_version = "1.6.2"
+    implementation "com.airbnb.android:epoxy:$epoxy_version"
+    implementation 'com.airbnb.android:epoxy:2.2.0'
+    // Add the annotation processor if you are using Epoxy's annotations (recommended)
+    annotationProcessor 'com.airbnb.android:epoxy-processor:2.2.0'
+}
+apply plugin: 'com.google.gms.google-services'
+
+static def getLastCommitNumber() {
+    def command = "git rev-list --count HEAD"
+    def temp = "1"
+    if (command.execute().text != "") {
+        temp = command.execute().text
+    }
+    return temp as Integer
+}
