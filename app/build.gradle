@@ -18,6 +18,7 @@ android {
         versionCode lastCommitNumber
         versionName "0.$sprint.$versionCode"
         resConfigs "auto"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -26,10 +27,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+    dataBinding {
+        enabled = true
+    }
 }
-
+kapt {
+    generateStubs = true
+}
 def support_version = "26.0.1"
+
+def  archLifecycleVersion = "1.0.0"
+def  archRoomVersion = "1.0.0"
 dependencies {
+    kapt "com.android.databinding:compiler:3.1.0-alpha04"
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation "com.android.support:appcompat-v7:$support_version"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
@@ -39,9 +49,10 @@ dependencies {
     })
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
     implementation "com.android.support:recyclerview-v7:$support_version"
+
     compile 'com.firebaseui:firebase-ui-auth:3.1.0'
     compile 'com.google.firebase:firebase-core:11.4.2'
-
+    compile 'com.google.firebase:firebase-database:11.4.2'
     compile 'com.android.support:appcompat-v7:26.1.0'
 
     // Reactive extension
@@ -58,11 +69,15 @@ dependencies {
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
 
     implementation 'de.hdodenhof:circleimageview:2.1.0'
-    def epoxy_version = "1.6.2"
-    implementation "com.airbnb.android:epoxy:$epoxy_version"
-    implementation 'com.airbnb.android:epoxy:2.2.0'
+
+    implementation 'com.airbnb.android:epoxy:2.7.3'
+    implementation 'com.airbnb.android:epoxy-databinding:2.6.0'
     // Add the annotation processor if you are using Epoxy's annotations (recommended)
-    annotationProcessor 'com.airbnb.android:epoxy-processor:2.2.0'
+    annotationProcessor 'com.airbnb.android:epoxy-processor:2.7.3'
+    compile "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    compile "android.arch.persistence.room:runtime:$archRoomVersion"
+    annotationProcessor "android.arch.lifecycle:extensions:$archLifecycleVersion"
+    annotationProcessor "android.arch.persistence.room:runtime:$archRoomVersion"
 }
 apply plugin: 'com.google.gms.google-services'
 

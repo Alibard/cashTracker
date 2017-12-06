@@ -9,6 +9,7 @@ import com.firebase.ui.auth.ErrorCodes
 import com.firebase.ui.auth.IdpResponse
 import android.content.Intent
 import android.widget.Toast
+import cashtracker.alibard.tm.com.activity.main.MainActivity
 import cashtracker.alibard.tm.com.cashtracker.R
 
 
@@ -17,9 +18,10 @@ class StartActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_activity)
+
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
-            startActivity(Intent(this,MainActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
         } else {
             startActivityForResult(
                     // Get an instance of AuthUI based on the default app
@@ -33,10 +35,6 @@ class StartActivity : AppCompatActivity() {
                             .setIsSmartLockEnabled(false)
                             .build(),
                     RC_SIGN_IN)
-//            startActivityForResult(
-//                    // Get an instance of AuthUI based on the default app
-//                    AuthUI.getInstance().createSignInIntentBuilder().build(),
-//                    RC_SIGN_IN)
         }
     }
 
@@ -49,8 +47,8 @@ class StartActivity : AppCompatActivity() {
             // Successfully signed in
             if (resultCode == Activity.RESULT_OK) {
                 Toast.makeText(this,"Loginetd",Toast.LENGTH_SHORT).show()
-                startActivity(Intent(this,MainActivity::class.java))
                 finish()
+                startActivity(Intent(this, MainActivity::class.java))
                 return
             } else {
                 // Sign in failed

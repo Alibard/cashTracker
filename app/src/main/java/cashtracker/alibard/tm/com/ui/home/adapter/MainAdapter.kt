@@ -1,0 +1,43 @@
+package cashtracker.alibard.tm.com.ui.home.adapter
+
+import android.databinding.ViewDataBinding
+import android.util.Log
+import cashtracker.alibard.tm.com.cashtracker.R
+import cashtracker.alibard.tm.com.model.Hendlers
+import cashtracker.alibard.tm.com.model.TestList
+import com.airbnb.epoxy.DataBindingEpoxyModel
+import com.airbnb.epoxy.EpoxyAdapter
+import com.airbnb.epoxy.databinding.BR
+import java.util.*
+
+
+class MainAdapter (listItems : ArrayList<TestList>): EpoxyAdapter() {
+    init {
+        listItems.forEach {
+            addModel(TestModel(it))
+        }
+
+    }
+    fun fillmodels(listItems : List<TestList>){
+        listItems.forEach {
+            addModel(TestModel(it))
+        }
+    }
+
+
+    class TestModel (val item: TestList): DataBindingEpoxyModel() {
+        override fun setDataBindingVariables(binding: ViewDataBinding) {
+            binding.setVariable(BR.test, item)
+            val hand = object : Hendlers {
+                override fun onItemClick(item: TestList) {
+                    Log.d("tag, " , item.text)
+                }
+
+            }
+            binding.setVariable(BR.hendler,hand)
+
+        }
+
+        override fun getDefaultLayout(): Int = R.layout.view_holder_page_header
+    }
+}
