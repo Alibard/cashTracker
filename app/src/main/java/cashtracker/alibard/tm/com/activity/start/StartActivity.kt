@@ -1,6 +1,7 @@
-package cashtracker.alibard.tm.com.activity
+package cashtracker.alibard.tm.com.activity.start
 
 import android.app.Activity
+import android.arch.lifecycle.ViewModelProviders
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import com.firebase.ui.auth.AuthUI
@@ -10,11 +11,15 @@ import com.firebase.ui.auth.IdpResponse
 import android.content.Intent
 import android.widget.Toast
 import cashtracker.alibard.tm.com.activity.main.MainActivity
+import cashtracker.alibard.tm.com.activity.main.MainViewModel
 import cashtracker.alibard.tm.com.cashtracker.R
 
 
 class StartActivity : AppCompatActivity() {
     val RC_SIGN_IN = 123
+    private val startActivityModel by lazy {
+        ViewModelProviders.of(this).get(StartViewModel::class.java)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.start_activity)
@@ -46,6 +51,7 @@ class StartActivity : AppCompatActivity() {
 
             // Successfully signed in
             if (resultCode == Activity.RESULT_OK) {
+                startActivityModel.saveUser()
                 Toast.makeText(this,"Loginetd",Toast.LENGTH_SHORT).show()
                 finish()
                 startActivity(Intent(this, MainActivity::class.java))

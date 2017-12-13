@@ -32,7 +32,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var navView: NavigationView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
         val mainBinding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity)
         val binding = DataBindingUtil.inflate<NavHeaderMain2Binding>(layoutInflater, R.layout.nav_header_main2, mainBinding.navView, false)
         mainBinding.navView.addHeaderView(binding.root)
@@ -55,7 +54,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private fun fillFragment() {
-        navView.menu.getItem(0).isChecked = true
+//        navView.menu.getItem(0).isChecked = true
         supportFragmentManager.beginTransaction()
                 .replace(R.id.mainContainer, MainFragment.newInstance())
                 .commit()
