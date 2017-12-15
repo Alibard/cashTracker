@@ -17,6 +17,7 @@ class StartViewModel : ViewModel() {
     val root = FirebaseDatabase.getInstance().reference
     fun saveUser() {
         val currentUser = FirebaseRootChild("users").child(FirebaseAuth.getInstance().currentUser!!.uid)
+        val currentUserSettings = FirebaseRootChild("settings").child(FirebaseAuth.getInstance().currentUser!!.uid)
         currentUser.addListenerForSingleValueEvent(object : ValueEventListener {
             override fun onCancelled(p0: DatabaseError?) {
             }
@@ -24,8 +25,8 @@ class StartViewModel : ViewModel() {
             override fun onDataChange(p0: DataSnapshot) {
                 if (!p0.exists()) {
                     with(FirebaseAuth.getInstance().currentUser!!) {
-                        Log.d("tag", "registred")
                         currentUser.setValue(User(displayName ?: "", email ?: "", phoneNumber ?: "", photoUrl.toString(),true))
+                        currentUserSettings.setValue(Setting())
                     }
                 }
             }

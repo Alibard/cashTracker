@@ -42,12 +42,6 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setupActionBar(R.id.toolbar) {
             setDisplayHomeAsUpEnabled(true)
         }
-
-        fab.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show()
-        }
-
         setUpDriverLL()
         fillFragment()
 
