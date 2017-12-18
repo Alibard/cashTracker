@@ -39,6 +39,7 @@
         tools:text="Notis" />
 
     <EditText
+        android:gravity="top"
         android:layout_margin="8dp"
         android:padding="5dp"
         android:background="@drawable/gray_border"

@@ -39,6 +39,7 @@
 
         <activity android:name="cashtracker.alibard.tm.com.activity.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="cashtracker.alibard.tm.com.activity.additional_activity.AdditionalActivity"/>
     </application>
 
 </manifest>

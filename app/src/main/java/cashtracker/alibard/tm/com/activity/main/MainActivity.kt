@@ -3,25 +3,21 @@ package cashtracker.alibard.tm.com.activity.main
 
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProviders
-import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.NavigationView
-import android.support.design.widget.Snackbar
 import android.support.v4.view.GravityCompat
-import android.support.v7.app.ActionBarDrawerToggle
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.TextView
 import cashtracker.alibard.tm.com.cashtracker.R
-import cashtracker.alibard.tm.com.cashtracker.databinding.MainActivityBinding
-import cashtracker.alibard.tm.com.cashtracker.databinding.NavHeaderMain2Binding
 import cashtracker.alibard.tm.com.model.User
 import cashtracker.alibard.tm.com.ui.home.MainFragment
 import cashtracker.alibard.tm.com.ui.settings.SettingsFragment
 import cashtracker.alibard.tm.com.utils.extention.replaceFragmentInActivity
 import cashtracker.alibard.tm.com.utils.extention.setupActionBar
-import kotlinx.android.synthetic.main.app_bar_main.*
-import kotlinx.android.synthetic.main.main_activity.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -29,46 +25,56 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     private val mainActivityModel by lazy {
         ViewModelProviders.of(this).get(MainViewModel::class.java)
     }
-    lateinit var navView: NavigationView
+    private lateinit var drawerLayout: DrawerLayout
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        val mainBinding = DataBindingUtil.setContentView<MainActivityBinding>(this, R.layout.main_activity)
-        val binding = DataBindingUtil.inflate<NavHeaderMain2Binding>(layoutInflater, R.layout.nav_header_main2, mainBinding.navView, false)
-        mainBinding.navView.addHeaderView(binding.root)
-        navView = mainBinding.navView
+        setContentView(R.layout.main_activity)
         mainActivityModel.fillUser()
-        subscribe(binding)
-        binding.executePendingBindings()
         setupActionBar(R.id.toolbar) {
+            setTitle(R.string.app_name)
+            setHomeAsUpIndicator(R.drawable.ic_menu)
             setDisplayHomeAsUpEnabled(true)
         }
-        setUpDriverLL()
-        fillFragment()
-
+        mainActivityModel.fillUser()
+        setupNavigationDrawer()
+        findOrCreateViewFragment()
+        subscribe()
     }
 
-    private fun fillFragment() {
-//        navView.menu.getItem(0).isChecked = true
-        supportFragmentManager.beginTransaction()
-                .replace(R.id.mainContainer, MainFragment.newInstance())
-                .commit()
-    }
+    private  fun  subscribe(){
+//        final Observer<Long> elapsedTimeObserver = new Observer<Long>() {
+//            @Override
+//            public void onChanged(@Nullable final Long aLong) {
+//                String newText = ChronoActivity3.this.getResources().getString(
+//                    R.string.seconds, aLong);
+//                ((TextView) findViewById(R.id.timer_textview)).setText(newText);
+//                Log.d("ChronoActivity3", "Updating timer");
+//            }
+//        };
 
-    private fun setUpDriverLL() {
-        val toggle = ActionBarDrawerToggle(
-                this, drawerLayout, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close)
-        drawerLayout.addDrawerListener(toggle)
-        toggle.syncState()
-        nav_view.setNavigationItemSelectedListener(this)
-    }
-
-    private fun subscribe(binding: NavHeaderMain2Binding) {
-        val userObserver = Observer<User> { user ->
-            binding.user = user
+        val userObserver = Observer<User> {
+          Log.d("taggss","1231412341234")
         }
-        mainActivityModel.getUser().observe(this, userObserver)
+        mainActivityModel.data.observe(this,userObserver)
+    }
+    private fun findOrCreateViewFragment() =
+            supportFragmentManager.findFragmentById(R.id.mainContainer) ?:
+                    MainFragment.newInstance().also {
+                        replaceFragmentInActivity(it, R.id.mainContainer)
+                    }
+
+    private fun setupNavigationDrawer() {
+        drawerLayout = (findViewById<DrawerLayout>(R.id.drawerLayout)).apply {
+            setStatusBarBackground(R.color.colorPrimaryDark)
+        }
+        setupDrawerContent(findViewById(R.id.nav_view))
     }
 
+    private fun setupDrawerContent(navigationView: NavigationView) {
+        navigationView.setNavigationItemSelectedListener(this)
+    }
 
     override fun onBackPressed() {
         if (drawerLayout.isDrawerOpen(GravityCompat.START)) {
@@ -84,12 +90,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         return true
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.action_settings -> true
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
+    override fun onOptionsItemSelected(item: MenuItem) =
+            when (item.itemId) {
+                android.R.id.home -> {
+                    drawerLayout.openDrawer(GravityCompat.START)
+                    true
+                }
+                else -> super.onOptionsItemSelected(item)
+            }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
@@ -103,6 +111,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                     replaceFragmentInActivity(SettingsFragment.newInstance(), R.id.mainContainer)
 
             }
+
         }
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
