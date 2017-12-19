@@ -1,13 +1,20 @@
 package cashtracker.alibard.tm.com.ui.add_spending
 
+import android.arch.lifecycle.ViewModel
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.*
 import android.widget.ArrayAdapter
+import cashtracker.alibard.tm.com.app.App
 import cashtracker.alibard.tm.com.cashtracker.R
+import cashtracker.alibard.tm.com.ui.add_spending.di.DaggerSpendingComponent
 import cashtracker.alibard.tm.com.utils.enums.CurrensyType
 import kotlinx.android.synthetic.main.spending_fragment.*
+import javax.inject.Inject
+import javax.inject.Provider
+
 
 
 class AddSpendingFragment : Fragment() {
@@ -15,11 +22,19 @@ class AddSpendingFragment : Fragment() {
         fun newInstance(): AddSpendingFragment = AddSpendingFragment()
         val TAG = "AddSpendingFragment"
     }
+    @Inject lateinit var viewModelProvider : Provider<SpendingVIewModel>
+    @Suppress("UNCHECKED_CAST")
+    private val  spendingModel by lazy {
+         val factory = object :ViewModelProvider.Factory{
+            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+                return viewModelProvider.get() as T
+            }
 
-    val  spendingModel by lazy {
-        ViewModelProviders.of(this).get(SpendingVIewModel::class.java)
+        }
+        ViewModelProviders.of(this,factory).get(SpendingVIewModel::class.java)
     }
     override fun onCreate(savedInstanceState: Bundle?) {
+        DaggerSpendingComponent.builder().appComponent(App.getComponent(context)).build().inject(this)
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
@@ -41,6 +56,7 @@ class AddSpendingFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.saveAction -> {
+                spendingModel.saveSpending()
             }
         }
         return super.onOptionsItemSelected(item)

@@ -8,16 +8,17 @@ import android.support.design.widget.NavigationView
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.TextView
 import cashtracker.alibard.tm.com.cashtracker.R
 import cashtracker.alibard.tm.com.model.User
 import cashtracker.alibard.tm.com.ui.home.MainFragment
 import cashtracker.alibard.tm.com.ui.settings.SettingsFragment
+import cashtracker.alibard.tm.com.utils.extention.loadBigImage
 import cashtracker.alibard.tm.com.utils.extention.replaceFragmentInActivity
 import cashtracker.alibard.tm.com.utils.extention.setupActionBar
+import kotlinx.android.synthetic.main.main_activity.*
+import kotlinx.android.synthetic.main.nav_header_main2.view.*
 
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -44,18 +45,14 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     private  fun  subscribe(){
-//        final Observer<Long> elapsedTimeObserver = new Observer<Long>() {
-//            @Override
-//            public void onChanged(@Nullable final Long aLong) {
-//                String newText = ChronoActivity3.this.getResources().getString(
-//                    R.string.seconds, aLong);
-//                ((TextView) findViewById(R.id.timer_textview)).setText(newText);
-//                Log.d("ChronoActivity3", "Updating timer");
-//            }
-//        };
-
         val userObserver = Observer<User> {
-          Log.d("taggss","1231412341234")
+            if(it!=null) {
+               with(nav_view.getHeaderView(0)){
+                imageView.loadBigImage(it.photo)
+                user_name_text_view.text = it.name
+                textView.text = it.email
+               }
+            }
         }
         mainActivityModel.data.observe(this,userObserver)
     }
