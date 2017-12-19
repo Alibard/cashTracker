@@ -18,8 +18,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="cashtracker.alibard.tm.com.activity.StartActivity">
-            <intent-filter>
+        <activity android:name="cashtracker.alibard.tm.com.activity.start.StartActivity">
+            <intent-filter>.
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -39,6 +39,7 @@
 
         <activity android:name="cashtracker.alibard.tm.com.activity.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name="cashtracker.alibard.tm.com.activity.additional_activity.AdditionalActivity"/>
     </application>
 
 </manifest>

@@ -1,15 +1,21 @@
 package cashtracker.alibard.tm.com.ui.home
 
+import android.content.Intent
 import android.support.v4.app.Fragment
 import android.os.Bundle
 import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import cashtracker.alibard.tm.com.activity.additional_activity.AdditionalActivity
+import cashtracker.alibard.tm.com.activity.main.MainActivity
 import cashtracker.alibard.tm.com.cashtracker.R
 import cashtracker.alibard.tm.com.model.TestList
+import cashtracker.alibard.tm.com.ui.add_spending.AddSpendingFragment
 import cashtracker.alibard.tm.com.ui.home.adapter.MainAdapter
+import cashtracker.alibard.tm.com.utils.extention.replaceFragmentInActivity
 import com.airbnb.epoxy.EpoxyRecyclerView
+import kotlinx.android.synthetic.main.main_fragment.*
 
 
 class MainFragment : Fragment() {
@@ -37,6 +43,12 @@ class MainFragment : Fragment() {
         someList.add(TestList("duo"))
         someList.add(TestList("trio"))
         adapter.fillmodels(someList.toList())
+        fab.setOnClickListener{
+            val intent = Intent(activity,AdditionalActivity::class.java)
+            intent.putExtra("fragment",AddSpendingFragment.TAG)
+            startActivity(intent)
+//            (activity as MainActivity).replaceFragmentInActivity(AddSpendingFragment.newInstance(), R.id.mainContainer)
+        }
     }
 
 }
