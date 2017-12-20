@@ -3,7 +3,7 @@ package cashtracker.alibard.tm.com.activity.main
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
-import cashtracker.alibard.tm.com.model.User
+import cashtracker.alibard.tm.com.pojo.User
 import com.google.firebase.auth.FirebaseAuth
 
 
@@ -16,9 +16,9 @@ class MainViewModel : ViewModel() {
     }
 
     fun fillUser() {
-        var ss =
         data.postValue(User(FirebaseAuth.getInstance().currentUser?.displayName ?: "None",
                 FirebaseAuth.getInstance().currentUser?.email?:"example@mail.con",
+                FirebaseAuth.getInstance().currentUser?.phoneNumber?:"",
                 getUserPhoto()))
 
     }

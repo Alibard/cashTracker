@@ -11,7 +11,7 @@ import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
 import cashtracker.alibard.tm.com.cashtracker.R
-import cashtracker.alibard.tm.com.model.User
+import cashtracker.alibard.tm.com.pojo.User
 import cashtracker.alibard.tm.com.ui.home.MainFragment
 import cashtracker.alibard.tm.com.ui.settings.SettingsFragment
 import cashtracker.alibard.tm.com.utils.extention.loadBigImage

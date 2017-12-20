@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android'
 
 apply plugin: 'kotlin-android-extensions'
 apply from: "artifacts.gradle"
+apply plugin: 'kotlin-kapt'
 
 def sprint = 1
 def lastCommitNumber = getLastCommitNumber()
@@ -61,9 +62,17 @@ dependencies {
     // explicitly depend on RxJava's latest version for bug fixes and new features.
     implementation 'io.reactivex.rxjava2:rxjava:2.0.7'
 
-    def dagger_version = "2.9"
+    def dagger_version = "2.11"
     compile "com.google.dagger:dagger:$dagger_version"
     kapt "com.google.dagger:dagger-compiler:$dagger_version"
+
+
+    //Dagger-Android
+    compile 'com.google.dagger:dagger-android:2.11'
+    annotationProcessor 'com.google.dagger:dagger-android-processor:2.11'
+
+    //Если мы собираемся использовать support библиотеку
+    compile 'com.google.dagger:dagger-android-support:2.11'
 
     compile 'com.github.bumptech.glide:glide:4.0.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0'
@@ -76,8 +85,8 @@ dependencies {
     annotationProcessor 'com.airbnb.android:epoxy-processor:2.7.3'
     compile "android.arch.lifecycle:extensions:$archLifecycleVersion"
     compile "android.arch.persistence.room:runtime:$archRoomVersion"
+    kapt "android.arch.persistence.room:compiler:$archRoomVersion"
     annotationProcessor "android.arch.lifecycle:extensions:$archLifecycleVersion"
-    annotationProcessor "android.arch.persistence.room:runtime:$archRoomVersion"
 }
 apply plugin: 'com.google.gms.google-services'
 

@@ -5,13 +5,13 @@
 
     <data>
 
-        <variable
-            name="test"
-            type="cashtracker.alibard.tm.com.model.TestList" />
+        <!--<variable-->
+            <!--name="test"-->
+            <!--type="cashtracker.alibard.tm.com.model.TestList" />-->
 
-        <variable
-            name="hendler"
-            type="cashtracker.alibard.tm.com.model.Hendlers" />
+        <!--<variable-->
+            <!--name="hendler"-->
+            <!--type="cashtracker.alibard.tm.com.model.Hendlers" />-->
 
     </data>
 
