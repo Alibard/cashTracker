@@ -6,8 +6,9 @@ import cashtracker.alibard.tm.com.repository.local.LocalRepository
 import javax.inject.Inject
 
 
-class SpendingVIewModel @Inject constructor(val rep: LocalRepository) : ViewModel() {
+class SpendingVIewModel
+(val rep: LocalRepository) : ViewModel() {
     fun saveSpending() {
-        Log.d("TAGGGGG",": "+rep.getAllSpend().size)
+//        Log.d("TAGGGGG",": "+rep.getAllSpend().size)
     }
 }

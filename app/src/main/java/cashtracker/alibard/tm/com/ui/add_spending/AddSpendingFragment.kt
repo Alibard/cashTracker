@@ -9,7 +9,7 @@ import android.view.*
 import android.widget.ArrayAdapter
 import cashtracker.alibard.tm.com.app.App
 import cashtracker.alibard.tm.com.cashtracker.R
-import cashtracker.alibard.tm.com.ui.add_spending.di.DaggerSpendingComponent
+
 import cashtracker.alibard.tm.com.utils.enums.CurrensyType
 import kotlinx.android.synthetic.main.spending_fragment.*
 import javax.inject.Inject
@@ -22,19 +22,19 @@ class AddSpendingFragment : Fragment() {
         fun newInstance(): AddSpendingFragment = AddSpendingFragment()
         val TAG = "AddSpendingFragment"
     }
-    @Inject lateinit var viewModelProvider : Provider<SpendingVIewModel>
-    @Suppress("UNCHECKED_CAST")
-    private val  spendingModel by lazy {
-         val factory = object :ViewModelProvider.Factory{
-            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-                return viewModelProvider.get() as T
-            }
-
-        }
-        ViewModelProviders.of(this,factory).get(SpendingVIewModel::class.java)
-    }
+//    @Inject lateinit var viewModelProvider : Provider<SpendingVIewModel>
+//    @Suppress("UNCHECKED_CAST")
+//    private val  spendingModel by lazy {
+//         val factory = object :ViewModelProvider.Factory{
+//            override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+//                return viewModelProvider.get() as T
+//            }
+//
+//        }
+//        ViewModelProviders.of(this,factory).get(SpendingVIewModel::class.java)
+//    }
     override fun onCreate(savedInstanceState: Bundle?) {
-        DaggerSpendingComponent.builder().appComponent(App.getComponent(context)).build().inject(this)
+//        DaggerSpendingComponent.builder().appComponent(App.getComponent(context)).build().inject(this)
         setHasOptionsMenu(true)
         super.onCreate(savedInstanceState)
     }
@@ -56,7 +56,7 @@ class AddSpendingFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item?.itemId) {
             R.id.saveAction -> {
-                spendingModel.saveSpending()
+//                spendingModel.saveSpending()
             }
         }
         return super.onOptionsItemSelected(item)

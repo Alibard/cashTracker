@@ -5,6 +5,6 @@ import cashtracker.alibard.tm.com.repository.database.SpendingTable
 
 
 interface LocalRepository {
-    fun getAllSpend(): List<SpendingTable>
+//    fun getAllSpend(): List<SpendingTable>
 
 }
