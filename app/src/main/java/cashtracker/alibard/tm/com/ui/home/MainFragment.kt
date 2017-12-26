@@ -44,7 +44,6 @@ class MainFragment : Fragment() {
             val intent = Intent(activity,AdditionalActivity::class.java)
             intent.putExtra("fragment",AddSpendingFragment.TAG)
             startActivity(intent)
-//            (activity as MainActivity).replaceFragmentInActivity(AddSpendingFragment.newInstance(), R.id.mainContainer)
         }
     }
 

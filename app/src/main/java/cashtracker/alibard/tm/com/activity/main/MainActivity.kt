@@ -51,6 +51,7 @@ class MainActivity : DaggerAppCompatActivity(),
         setupNavigationDrawer()
         findOrCreateViewFragment()
         subscribe()
+
     }
 
     private fun subscribe() {
