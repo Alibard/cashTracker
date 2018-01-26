@@ -1,24 +1,21 @@
 package cashtracker.alibard.tm.com.app.di
 
+import android.content.Context
+import android.net.Uri
 import cashtracker.alibard.tm.com.app.App
 import dagger.BindsInstance
 import dagger.Component
-import dagger.android.AndroidInjector
-import dagger.android.support.AndroidSupportInjectionModule
 import javax.inject.Singleton
 
-
 @Singleton
-@Component(modules = arrayOf(
-        AndroidSupportInjectionModule::class,
-        UiModule::class))
-interface AppComponent : AndroidInjector<App>  {
-
+@Component (modules = arrayOf(AppModule::class,RoomModule::class))
+interface AppComponent {
     @Component.Builder
     interface Builder {
         @BindsInstance
-        fun application(application: App): Builder
+        fun context(context: Context): Builder
         fun build(): AppComponent
     }
-    override fun inject(app: App)
+    fun inject(app: App)
+
 }

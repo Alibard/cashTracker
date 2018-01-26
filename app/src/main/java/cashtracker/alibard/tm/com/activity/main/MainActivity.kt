@@ -20,6 +20,7 @@ import cashtracker.alibard.tm.com.utils.extention.loadBigImage
 import cashtracker.alibard.tm.com.utils.extention.replaceFragmentInActivity
 import cashtracker.alibard.tm.com.utils.extention.setupActionBar
 import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.DaggerAppCompatActivity
 import dagger.android.support.HasSupportFragmentInjector
@@ -28,26 +29,29 @@ import kotlinx.android.synthetic.main.nav_header_main2.view.*
 import javax.inject.Inject
 
 
-class MainActivity : DaggerAppCompatActivity(),
+class MainActivity : AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener {
-
-
     private lateinit var drawerLayout: DrawerLayout
+
+
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    lateinit var mainActivityModel: MainViewModel
+    @Inject lateinit var androidInjector: DispatchingAndroidInjector<Fragment>
+//    override fun supportFragmentInjector() = androidInjector
+//    lateinit var mainActivityModel: MainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+//        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        mainActivityModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-        mainActivityModel.fillUser()
+//        mainActivityModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+//        mainActivityModel.fillUser()
         setupActionBar(R.id.toolbar) {
             setTitle(R.string.app_name)
             setHomeAsUpIndicator(R.drawable.ic_menu)
             setDisplayHomeAsUpEnabled(true)
         }
-        mainActivityModel.fillUser()
+//        mainActivityModel.fillUser()
         setupNavigationDrawer()
         findOrCreateViewFragment()
         subscribe()
@@ -64,7 +68,7 @@ class MainActivity : DaggerAppCompatActivity(),
                 }
             }
         }
-        mainActivityModel.data.observe(this, userObserver)
+//        mainActivityModel.data.observe(this, userObserver)
     }
 
     private fun findOrCreateViewFragment() =

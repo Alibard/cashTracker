@@ -32,14 +32,9 @@ class MainFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val recyclerView = view.findViewById<EpoxyRecyclerView>(R.id.recycler_view)
-//        val someList: MutableList<TestList> = ArrayList()
+
         val layoutManager = LinearLayoutManager(context)
         recyclerView.layoutManager = layoutManager
-//        recyclerView.adapter = adapter
-//        someList.add(TestList("one"))
-//        someList.add(TestList("duo"))
-//        someList.add(TestList("trio"))
-//        adapter.fillmodels(someList.toList())
         fab.setOnClickListener{
             val intent = Intent(activity,AdditionalActivity::class.java)
             intent.putExtra("fragment",AddSpendingFragment.TAG)
