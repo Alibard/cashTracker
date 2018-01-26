@@ -1,22 +1,21 @@
 package cashtracker.alibard.tm.com.app.di
 
 import android.content.Context
+import android.net.Uri
 import cashtracker.alibard.tm.com.app.App
-import cashtracker.alibard.tm.com.repository.database.CashTrackarBase
-import cashtracker.alibard.tm.com.repository.database.SpendingDao
-import cashtracker.alibard.tm.com.repository.local.LocalRepository
+import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
 
-
 @Singleton
-@Component(modules = arrayOf(AppModule::class,RoomModule::class))
+@Component (modules = arrayOf(AppModule::class,RoomModule::class))
 interface AppComponent {
+    @Component.Builder
+    interface Builder {
+        @BindsInstance
+        fun context(context: Context): Builder
+        fun build(): AppComponent
+    }
     fun inject(app: App)
 
-
-    fun context(): Context
-    fun provideLocalRep(): LocalRepository
-    fun provideDao(): SpendingDao
-    fun provideDb(): CashTrackarBase
 }

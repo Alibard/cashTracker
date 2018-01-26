@@ -5,15 +5,12 @@ import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import cashtracker.alibard.tm.com.pojo.User
 import com.google.firebase.auth.FirebaseAuth
+import javax.inject.Inject
 
 
-class MainViewModel : ViewModel() {
+class MainViewModel @Inject constructor(): ViewModel() {
     var data: MutableLiveData<User> = MutableLiveData()
 
-    init {
-
-
-    }
 
     fun fillUser() {
         data.postValue(User(FirebaseAuth.getInstance().currentUser?.displayName ?: "None",

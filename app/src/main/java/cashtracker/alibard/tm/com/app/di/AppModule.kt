@@ -1,16 +1,22 @@
 package cashtracker.alibard.tm.com.app.di
 
-import android.app.Application
-import android.content.Context
+import android.arch.lifecycle.ViewModelProvider
+import cashtracker.alibard.tm.com.activity.additional_activity.AdditionalActivity
+import cashtracker.alibard.tm.com.activity.additional_activity.di.AdditionalModule
+import cashtracker.alibard.tm.com.scope.ActivityScope
+import cashtracker.alibard.tm.com.utils.ViewModelFactory
+import dagger.Binds
 import dagger.Module
-import dagger.Provides
-import javax.inject.Singleton
+import dagger.android.ContributesAndroidInjector
+import dagger.android.support.AndroidSupportInjectionModule
 
+@Module(includes = arrayOf(AndroidSupportInjectionModule::class))
+abstract class AppModule {
 
-@Module
-class AppModule(val application: Application) {
+    @Binds
+    abstract fun bindViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory
 
-    @Singleton
-    @Provides
-    fun context(): Context = application
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf(AdditionalModule::class))
+    abstract fun additiobnalActivityInjectot(): AdditionalActivity
 }

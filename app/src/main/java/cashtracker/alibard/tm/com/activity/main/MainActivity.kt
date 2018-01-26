@@ -2,9 +2,11 @@ package cashtracker.alibard.tm.com.activity.main
 
 
 import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.design.widget.NavigationView
+import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
 import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
@@ -17,45 +19,58 @@ import cashtracker.alibard.tm.com.ui.settings.SettingsFragment
 import cashtracker.alibard.tm.com.utils.extention.loadBigImage
 import cashtracker.alibard.tm.com.utils.extention.replaceFragmentInActivity
 import cashtracker.alibard.tm.com.utils.extention.setupActionBar
+import dagger.android.AndroidInjection
+import dagger.android.AndroidInjector
+import dagger.android.DispatchingAndroidInjector
+import dagger.android.support.DaggerAppCompatActivity
+import dagger.android.support.HasSupportFragmentInjector
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.nav_header_main2.view.*
+import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
-
-    private val mainActivityModel by lazy {
-        ViewModelProviders.of(this).get(MainViewModel::class.java)
-    }
+class MainActivity : AppCompatActivity(),
+        NavigationView.OnNavigationItemSelectedListener {
     private lateinit var drawerLayout: DrawerLayout
 
 
+    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
+    @Inject lateinit var androidInjector: DispatchingAndroidInjector<Fragment>
+//    override fun supportFragmentInjector() = androidInjector
+//    lateinit var mainActivityModel: MainViewModel
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
+//        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-        mainActivityModel.fillUser()
+//        mainActivityModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
+//        mainActivityModel.fillUser()
         setupActionBar(R.id.toolbar) {
             setTitle(R.string.app_name)
             setHomeAsUpIndicator(R.drawable.ic_menu)
             setDisplayHomeAsUpEnabled(true)
         }
-        mainActivityModel.fillUser()
+//        mainActivityModel.fillUser()
         setupNavigationDrawer()
         findOrCreateViewFragment()
         subscribe()
+
     }
 
-    private  fun  subscribe(){
+    private fun subscribe() {
         val userObserver = Observer<User> {
-            if(it!=null) {
-               with(nav_view.getHeaderView(0)){
-                imageView.loadBigImage(it.photo)
-                user_name_text_view.text = it.name
-                textView.text = it.email
-               }
+            if (it != null) {
+                with(nav_view.getHeaderView(0)) {
+                    imageView.loadBigImage(it.photo)
+                    user_name_text_view.text = it.name
+                    textView.text = it.email
+                }
             }
         }
-        mainActivityModel.data.observe(this,userObserver)
+//        mainActivityModel.data.observe(this, userObserver)
     }
+
     private fun findOrCreateViewFragment() =
             supportFragmentManager.findFragmentById(R.id.mainContainer) ?:
                     MainFragment.newInstance().also {

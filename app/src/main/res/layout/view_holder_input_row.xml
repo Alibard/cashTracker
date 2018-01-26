@@ -1,22 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layout xmlns:android="http://schemas.android.com/apk/res/android">
-
-    <data>
-
-        <variable
-            name="text"
-            type="String" />
-
-        <variable
-            name="textWatcher"
-            type="android.text.TextWatcher" />
-
-    </data>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <EditText
         android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:onTextChanged="@{textWatcher.onTextChanged}"
-        android:text="@{text}" />
-
-</layout>
+        android:layout_height="40dp" />
+</LinearLayout>
