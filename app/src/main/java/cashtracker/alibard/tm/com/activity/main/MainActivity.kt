@@ -1,9 +1,11 @@
 package cashtracker.alibard.tm.com.activity.main
 
 
+import android.arch.lifecycle.LifecycleObserver
 import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
+import android.content.res.Configuration
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -30,45 +32,32 @@ import javax.inject.Inject
 
 
 class MainActivity : AppCompatActivity(),
-        NavigationView.OnNavigationItemSelectedListener {
+        NavigationView.OnNavigationItemSelectedListener,
+        MainActivityNavigator {
     private lateinit var drawerLayout: DrawerLayout
 
 
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var androidInjector: DispatchingAndroidInjector<Fragment>
-//    override fun supportFragmentInjector() = androidInjector
-//    lateinit var mainActivityModel: MainViewModel
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
-//        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.main_activity)
-//        mainActivityModel = ViewModelProviders.of(this, viewModelFactory).get(MainViewModel::class.java)
-//        mainActivityModel.fillUser()
         setupActionBar(R.id.toolbar) {
             setTitle(R.string.app_name)
             setHomeAsUpIndicator(R.drawable.ic_menu)
             setDisplayHomeAsUpEnabled(true)
         }
-//        mainActivityModel.fillUser()
         setupNavigationDrawer()
         findOrCreateViewFragment()
         subscribe()
 
+
     }
 
     private fun subscribe() {
-        val userObserver = Observer<User> {
-            if (it != null) {
-                with(nav_view.getHeaderView(0)) {
-                    imageView.loadBigImage(it.photo)
-                    user_name_text_view.text = it.name
-                    textView.text = it.email
-                }
-            }
-        }
-//        mainActivityModel.data.observe(this, userObserver)
+
     }
 
     private fun findOrCreateViewFragment() =

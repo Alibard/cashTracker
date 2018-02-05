@@ -6,7 +6,7 @@
         android:id="@+id/saveAction"
         android:orderInCategory="100"
         app:showAsAction="ifRoom"
-        android:icon="@android:drawable/arrow_down_float"
+        android:icon="@drawable/ic_done_white_24dp"
         android:title="Refresh"
         tools:ignore="HardcodedText" />
 </menu>

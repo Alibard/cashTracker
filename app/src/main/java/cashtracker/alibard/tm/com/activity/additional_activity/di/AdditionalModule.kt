@@ -9,6 +9,7 @@ import dagger.android.ContributesAndroidInjector
 
 @Module
 abstract class AdditionalModule {
+
     @FragmentScope
     @ContributesAndroidInjector(modules = arrayOf(SpendingModule::class))
     abstract fun spendingFragmentInject():AddSpendingFragment

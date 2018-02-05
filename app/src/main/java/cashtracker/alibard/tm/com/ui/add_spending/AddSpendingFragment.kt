@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
 import cashtracker.alibard.tm.com.cashtracker.R
@@ -14,7 +15,12 @@ import kotlinx.android.synthetic.main.spending_fragment.*
 import javax.inject.Inject
 
 
-class AddSpendingFragment : Fragment() {
+class AddSpendingFragment : Fragment(),
+        SpendingNavigator{
+    override fun onSuccess() {
+        Log.d("onSuccess", "test")
+    }
+
     @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
     @Inject lateinit var spendingModel: SpendingVIewModel
 
@@ -40,6 +46,7 @@ class AddSpendingFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         spendingModel = ViewModelProviders.of(activity, viewModelFactory).get(SpendingVIewModel::class.java)
+        spendingModel.navigator = this
         typeSpending.adapter = ArrayAdapter(context, R.layout.spinner_item, CurrensyType.values())
 
     }
