@@ -19,7 +19,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name="cashtracker.alibard.tm.com.activity.start.StartActivity">
-            <intent-filter>.
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -36,10 +36,14 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/google_maps_key" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" />
 
         <activity android:name="cashtracker.alibard.tm.com.activity.main.MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name="cashtracker.alibard.tm.com.activity.additional_activity.AdditionalActivity"/>
+        <activity android:name="cashtracker.alibard.tm.com.activity.test.TestActivity"/>
     </application>
 
 </manifest>

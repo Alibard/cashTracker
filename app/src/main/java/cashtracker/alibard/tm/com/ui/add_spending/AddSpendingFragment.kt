@@ -8,6 +8,7 @@ import android.support.v4.app.Fragment
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
+import cashtracker.alibard.tm.com.base.BaseFragment
 import cashtracker.alibard.tm.com.cashtracker.R
 import cashtracker.alibard.tm.com.utils.enums.CurrensyType
 import dagger.android.support.AndroidSupportInjection
@@ -15,7 +16,7 @@ import kotlinx.android.synthetic.main.spending_fragment.*
 import javax.inject.Inject
 
 
-class AddSpendingFragment : Fragment(),
+class AddSpendingFragment : BaseFragment(),
         SpendingNavigator{
     override fun onSuccess() {
         Log.d("onSuccess", "test")

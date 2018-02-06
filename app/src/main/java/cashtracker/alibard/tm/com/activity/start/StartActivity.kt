@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.widget.Toast
 import cashtracker.alibard.tm.com.activity.main.MainActivity
+import cashtracker.alibard.tm.com.activity.test.TestActivity
 import cashtracker.alibard.tm.com.cashtracker.R
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.ErrorCodes
@@ -25,7 +26,8 @@ class StartActivity : AppCompatActivity() {
 
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
-            startActivity(Intent(this, MainActivity::class.java))
+//            startActivity(Intent(this, MainActivity::class.java))
+            startActivity(Intent(this, TestActivity::class.java))
         } else {
             startActivityForResult(
                     // Get an instance of AuthUI based on the default app

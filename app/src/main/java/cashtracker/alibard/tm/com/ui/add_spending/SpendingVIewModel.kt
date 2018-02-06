@@ -13,13 +13,16 @@ class SpendingVIewModel @Inject constructor() : BaseViewModel<SpendingNavigator>
     @Inject lateinit var repo: LocalRepository
     fun saveSpending(price: String, currency: String, type: String, notice: String) {
         if (isValid(price, currency, type, notice)) {
+            navigator?.showLoad()
             repo.insertSpend(Spending(price = price.toInt(),currency =currency,description = notice))
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe({
+//                        navigator?.hideLoad()
                         navigator?.onSuccess()
                     },{
-
+//                        navigator?.hideLoad()
+                        navigator?.onError(it)
                     })
         }
     }
