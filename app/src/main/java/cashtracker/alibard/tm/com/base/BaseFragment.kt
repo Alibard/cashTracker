@@ -19,7 +19,6 @@ abstract class BaseFragment : Fragment(), BaseNavigator {
         }
         progressDialog = AlertDialog.Builder(context, R.style.AppTheme_ProgressDialog)
                 .setView(R.layout.dialog_progress)
-//                .setCancelable(false)
                 .show()
     }
 

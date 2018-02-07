@@ -23,7 +23,14 @@ abstract class BaseBindFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fra
     var viewModel: V? = null
         private set
 
+    /**
+     * @return layout resource id
+     */
+    @get:LayoutRes
+    abstract val layoutId: Int
+
     private var mRootView: View? = null
+
     override fun onAttach(context: Context?) {
 //        AndroidSupportInjection.inject(this)
         super.onAttach(context)
@@ -35,11 +42,11 @@ abstract class BaseBindFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fra
 
     }
 
-//    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-//        mViewDataBinding = DataBindingUtil.inflate<T>(inflater, layoutId, container, false)
-//        mRootView = mViewDataBinding?.root
-//        return mRootView
-//    }
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+        mViewDataBinding = DataBindingUtil.inflate(inflater, layoutId, container, false)
+        mRootView = mViewDataBinding?.root
+        return mRootView
+    }
 
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -50,11 +57,5 @@ abstract class BaseBindFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fra
         mViewDataBinding?.setVariable(getBindingVariable(), viewModel)
         mViewDataBinding?.executePendingBindings()
     }
-
     abstract fun getBindingVariable(): Int
-    /**
-     * @return layout resource id
-     */
-    @get:LayoutRes
-    abstract val layoutId: Int
 }

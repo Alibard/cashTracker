@@ -26,8 +26,8 @@ class StartActivity : AppCompatActivity() {
 
         val auth = FirebaseAuth.getInstance()
         if (auth.currentUser != null) {
-//            startActivity(Intent(this, MainActivity::class.java))
-            startActivity(Intent(this, TestActivity::class.java))
+            startActivity(Intent(this, MainActivity::class.java))
+//            startActivity(Intent(this, TestActivity::class.java))
         } else {
             startActivityForResult(
                     // Get an instance of AuthUI based on the default app
