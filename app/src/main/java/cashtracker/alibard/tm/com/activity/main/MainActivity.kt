@@ -6,6 +6,7 @@ import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.res.Configuration
+import android.databinding.DataBindingUtil
 import android.os.Bundle
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
@@ -14,7 +15,11 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import cashtracker.alibard.tm.com.base.BaseBindActivity
+import cashtracker.alibard.tm.com.cashtracker.BR
 import cashtracker.alibard.tm.com.cashtracker.R
+import cashtracker.alibard.tm.com.cashtracker.databinding.MainActivityBinding
+import cashtracker.alibard.tm.com.cashtracker.databinding.NavHeaderMain2Binding
 import cashtracker.alibard.tm.com.pojo.User
 import cashtracker.alibard.tm.com.test.TestFragment
 import cashtracker.alibard.tm.com.ui.home.MainFragment
@@ -32,9 +37,17 @@ import kotlinx.android.synthetic.main.nav_header_main2.view.*
 import javax.inject.Inject
 
 
-class MainActivity : AppCompatActivity(),
+class MainActivity : BaseBindActivity<MainActivityBinding,MainViewModel>(),
+//        AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
         MainActivityNavigator {
+    override fun onCreteViewModel(): MainViewModel = MainViewModel()
+
+    override val layoutId: Int
+        get() = R.layout.main_activity
+
+    override fun getBindingVariable(): Int = BR.maidActivityModel
+
     private lateinit var drawerLayout: DrawerLayout
 
 
@@ -44,7 +57,9 @@ class MainActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        val  binding = DataBindingUtil.inflate<NavHeaderMain2Binding>(layoutInflater, R.layout.nav_header_main2, mViewDataBinding?.navView, false)
+        mViewDataBinding?.navView?.addHeaderView(binding.root)
+        binding.user = User("Test","test@test.com")
         setupActionBar(R.id.toolbar) {
             setTitle(R.string.app_name)
             setHomeAsUpIndicator(R.drawable.ic_menu)

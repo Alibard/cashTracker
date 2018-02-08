@@ -3,12 +3,13 @@ package cashtracker.alibard.tm.com.activity.main
 import android.arch.lifecycle.LiveData
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
+import cashtracker.alibard.tm.com.base.BaseViewModel
 import cashtracker.alibard.tm.com.pojo.User
 import com.google.firebase.auth.FirebaseAuth
 import javax.inject.Inject
 
 
-class MainViewModel @Inject constructor(): ViewModel() {
+class MainViewModel @Inject constructor(): BaseViewModel<MainActivityNavigator>() {
     var data: MutableLiveData<User> = MutableLiveData()
 
 

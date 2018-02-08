@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    <!-- Inside the layout tag it is possible to set the data tag in order to set one or many variables. For this example we are having an User property-->
+    <data>
+
+        <variable
+            name="user"
+            type="cashtracker.alibard.tm.com.pojo.User" />
+
+    </data>
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/side_nav_bar"
@@ -24,13 +32,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="8dp"
-            tools:text="Ololom"
+            tools:text="@{user.name}"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
             android:id="@+id/textView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="adsa@asd.asd"/>
+            tools:text="@{user.email}"/>
 
     </LinearLayout>
+</layout>
