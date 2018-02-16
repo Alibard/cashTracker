@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class LocalImpl @Inject constructor(private val dataBase: CashTrackerDataBase) : LocalRepository {
     override fun updateSpend(spending: Spending): Completable {
-        return Completable.fromAction { ( dataBase.spendingDao().updageSpending(spending))}//.fromCallable { dataBase.spendingDao().updageSpending(spending) }
+        return Completable.fromAction { ( dataBase.spendingDao().updateSpending(spending))}//.fromCallable { dataBase.spendingDao().updateSpending(spending) }
     }
 
     override fun insertSpend(spending: Spending): Completable{

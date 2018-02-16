@@ -21,8 +21,8 @@ abstract class AppModule {
     @ActivityScope
     @ContributesAndroidInjector(modules = arrayOf(AdditionalModule::class))
     abstract fun additiobnalActivityInjectot(): AdditionalActivity
-//
-//    @ActivityScope
-//    @ContributesAndroidInjector(modules = arrayOf(MainModule::class))
-//    abstract fun mainActivityInjectot(): MainActivity
+
+    @ActivityScope
+    @ContributesAndroidInjector(modules = arrayOf(MainModule::class))
+    abstract fun mainActivityInjectot(): MainActivity
 }

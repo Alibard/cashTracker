@@ -7,6 +7,7 @@ import android.os.Bundle
 import android.support.annotation.LayoutRes
 import android.support.v7.app.AppCompatActivity
 import android.view.inputmethod.InputMethodManager
+import dagger.android.AndroidInjection
 
 
 abstract class BaseBindActivity<T : ViewDataBinding, V : BaseViewModel<*>> : AppCompatActivity() {
@@ -33,6 +34,7 @@ abstract class BaseBindActivity<T : ViewDataBinding, V : BaseViewModel<*>> : App
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         mViewDataBinding = DataBindingUtil.setContentView(this, layoutId)
         mViewDataBinding?.setVariable(getBindingVariable(), viewModel)
