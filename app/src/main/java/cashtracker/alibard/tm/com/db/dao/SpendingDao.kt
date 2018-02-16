@@ -13,5 +13,5 @@ interface SpendingDao {
     fun insetSpending(spend: Spending)
 
     @Update(onConflict = OnConflictStrategy.REPLACE)
-    fun  updageSpending(spend: Spending)
+    fun updateSpending(spend: Spending)
 }

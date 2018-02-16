@@ -20,18 +20,21 @@ class AdditionalActivity : AppCompatActivity(),HasSupportFragmentInjector {
         AndroidInjection.inject(this)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.additional_activity)
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
         when(intent.getStringExtra("fragment")){
             AddSpendingFragment.TAG ->{
                 supportFragmentManager.beginTransaction()
                         .replace(R.id.additionalContainer,AddSpendingFragment.newInstance())
                         .commit()
-//                supportFragmentManager.findFragmentById(R.id.additionalContainer) ?:
-//                        AddSpendingFragment.newInstance().also {
-//                            replaceFragmentInActivity(it, R.id.additionalContainer)
-//                        }
+
             }
         }
 
+    }
+    override fun onSupportNavigateUp(): Boolean {
+        onBackPressed()
+        return true
     }
 
 }

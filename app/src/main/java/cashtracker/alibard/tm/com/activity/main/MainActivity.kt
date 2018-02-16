@@ -21,7 +21,6 @@ import cashtracker.alibard.tm.com.cashtracker.R
 import cashtracker.alibard.tm.com.cashtracker.databinding.MainActivityBinding
 import cashtracker.alibard.tm.com.cashtracker.databinding.NavHeaderMain2Binding
 import cashtracker.alibard.tm.com.pojo.User
-import cashtracker.alibard.tm.com.test.TestFragment
 import cashtracker.alibard.tm.com.ui.home.MainFragment
 import cashtracker.alibard.tm.com.ui.settings.SettingsFragment
 import cashtracker.alibard.tm.com.utils.extention.loadBigImage
@@ -38,9 +37,12 @@ import javax.inject.Inject
 
 
 class MainActivity : BaseBindActivity<MainActivityBinding,MainViewModel>(),
-//        AppCompatActivity(),
         NavigationView.OnNavigationItemSelectedListener,
-        MainActivityNavigator {
+        MainActivityNavigator,
+        HasSupportFragmentInjector{
+
+    override fun supportFragmentInjector(): AndroidInjector<Fragment> = fragmentInjector
+
     override fun onCreteViewModel(): MainViewModel = MainViewModel()
 
     override val layoutId: Int
@@ -51,8 +53,7 @@ class MainActivity : BaseBindActivity<MainActivityBinding,MainViewModel>(),
     private lateinit var drawerLayout: DrawerLayout
 
 
-    @Inject lateinit var viewModelFactory: ViewModelProvider.Factory
-    @Inject lateinit var androidInjector: DispatchingAndroidInjector<Fragment>
+    @Inject lateinit var fragmentInjector :DispatchingAndroidInjector<Fragment>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -128,11 +129,11 @@ class MainActivity : BaseBindActivity<MainActivityBinding,MainViewModel>(),
                     replaceFragmentInActivity(SettingsFragment.newInstance(), R.id.mainContainer)
 
             }
-            R.id.nav_test -> {
-                if (!item.isChecked)
-                    replaceFragmentInActivity(TestFragment.newInstance(), R.id.mainContainer)
-
-            }
+//            R.id.nav_test -> {
+//                if (!item.isChecked)
+//                    replaceFragmentInActivity(TestFragment.newInstance(), R.id.mainContainer)
+//
+//            }
 
         }
         drawerLayout.closeDrawer(GravityCompat.START)

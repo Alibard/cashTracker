@@ -1,5 +1,6 @@
 package cashtracker.alibard.tm.com.base
 
+import android.app.AlertDialog
 import android.content.Context
 import android.databinding.DataBindingComponent
 import android.databinding.DataBindingUtil
@@ -10,10 +11,12 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import cashtracker.alibard.tm.com.cashtracker.R
 import dagger.android.support.AndroidSupportInjection
 
 
-abstract class BaseBindFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment() {
+abstract class BaseBindFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fragment(), BaseNavigator {
 
     abstract fun onCreteViewModel(): V
 
@@ -32,7 +35,7 @@ abstract class BaseBindFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fra
     private var mRootView: View? = null
 
     override fun onAttach(context: Context?) {
-//        AndroidSupportInjection.inject(this)
+        AndroidSupportInjection.inject(this)
         super.onAttach(context)
     }
 
@@ -58,4 +61,23 @@ abstract class BaseBindFragment<T : ViewDataBinding, V : BaseViewModel<*>> : Fra
         mViewDataBinding?.executePendingBindings()
     }
     abstract fun getBindingVariable(): Int
+
+
+    private var progressDialog: AlertDialog? = null
+    override fun onError(it: Throwable) {
+        Toast.makeText(context, it.message, Toast.LENGTH_SHORT).show()
+    }
+
+    override fun showLoad() {
+        if (progressDialog != null && progressDialog!!.isShowing) {
+            return
+        }
+        progressDialog = AlertDialog.Builder(context, R.style.AppTheme_ProgressDialog)
+                .setView(R.layout.dialog_progress)
+                .show()
+    }
+
+    override fun hideLoad() {
+        progressDialog?.dismiss()
+    }
 }
