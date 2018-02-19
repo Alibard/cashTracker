@@ -5,9 +5,7 @@ import android.arch.persistence.room.*
 
 @Entity(tableName = "settings")
 data class StructureSettings(@PrimaryKey(autoGenerate = true) var id: Long = 0,
-                             var pushState: Boolean = true,
-                             @ColumnInfo(name = "types_id")
-                             var address: Long? = null)
+                             var pushState: Boolean = true)
 
 
 @Entity(tableName = "spending_type")
@@ -17,7 +15,7 @@ data class SpendingType(@PrimaryKey(autoGenerate = true) var id: Long = 0,
                         @ColumnInfo(name = "settings_id") var settingsId: Long)
 
 
-class FullSettings() {
+class FullSettings {
     @Embedded
     lateinit var settings: StructureSettings
     @Relation(parentColumn = "id",
