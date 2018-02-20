@@ -12,4 +12,5 @@
     <string name="home">Home</string>
     <string name="loading_text">Loading ..</string>
     <string name="action_test">Test</string>
+    <string name="no_spending_text">No spending yet</string>
 </resources>

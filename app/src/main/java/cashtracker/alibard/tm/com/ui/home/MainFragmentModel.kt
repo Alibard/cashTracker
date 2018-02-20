@@ -11,7 +11,7 @@ import javax.inject.Inject
 class MainFragmentModel @Inject constructor() : BaseViewModel<MainFragmentNavigator>() {
     @Inject
     lateinit var repo: LocalRepository
-
+    var isEmpty : Boolean = true
     fun getAllSpending() {
         repo.getAllSpend()
                 .subscribeOn(Schedulers.io())

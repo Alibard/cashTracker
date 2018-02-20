@@ -24,7 +24,7 @@ class MainFragment :
         BaseBindFragment<MainFragmentBinding, MainFragmentModel>(),
         MainFragmentNavigator {
     override fun onListItemClick(view: View) {
-        Log.d("tag","CLiCK")
+        Log.d("tag", "CLiCK")
     }
 
     @Inject
@@ -47,20 +47,21 @@ class MainFragment :
 
         fun newInstance(): MainFragment = MainFragment()
     }
+
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
     }
 
-    private val adapter : MainAdapter by lazy {
-        MainAdapter(ArrayList(),this)
+    private val adapter: MainAdapter by lazy {
+        MainAdapter(ArrayList(), this)
     }
+
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         mainModel.navigator = this
-        mainModel.getAllSpending()
         val recyclerView = view?.findViewById<EpoxyRecyclerView>(R.id.recycler_view)
-context
+        context
         val layoutManager = LinearLayoutManager(context)
         recyclerView?.layoutManager = layoutManager
         recyclerView?.adapter = adapter
@@ -71,9 +72,22 @@ context
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        mainModel.getAllSpending()
+    }
+
     override fun fillData(it: List<Spending>) {
-        Log.d("MainFragment", "" +it.size)
-        adapter.fillModels(it)
+        if (it.isEmpty()) {
+            showEmpty()
+        } else {
+            adapter.fillModels(it)
+        }
+
+    }
+
+    private fun showEmpty() {
+
     }
 }
 

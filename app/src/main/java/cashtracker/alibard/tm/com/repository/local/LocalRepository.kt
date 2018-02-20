@@ -16,5 +16,6 @@ interface LocalRepository {
     fun getInitialSettings(): Single<List<FullSettings>>
     fun insertSettings(structureSettings: StructureSettings): Completable
     fun insertBaseType(spendingType: List<SpendingType>): Completable
+    fun getTypesSettings(): Single<List<SpendingType>>
 
 }

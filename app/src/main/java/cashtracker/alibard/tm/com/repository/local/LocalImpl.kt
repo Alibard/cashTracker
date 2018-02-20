@@ -36,4 +36,8 @@ class LocalImpl @Inject constructor(private val dataBase: CashTrackerDataBase) :
         return Completable.fromAction { dataBase.settingsDao().insertSpendingType(spendingType) }
     }
 
+    override fun getTypesSettings(): Single<List<SpendingType>> {
+        return Single.fromCallable { dataBase.settingsDao().getAllTypes() }
+    }
+
 }
