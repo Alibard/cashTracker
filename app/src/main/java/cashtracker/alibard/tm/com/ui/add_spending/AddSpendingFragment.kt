@@ -4,21 +4,46 @@ import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
 import android.content.Context
 import android.os.Bundle
-import android.support.v4.app.Fragment
-import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
-import android.widget.SpinnerAdapter
-import cashtracker.alibard.tm.com.base.BaseFragment
+import cashtracker.alibard.tm.com.base.BaseBindFragment
+import cashtracker.alibard.tm.com.cashtracker.BR
 import cashtracker.alibard.tm.com.cashtracker.R
-import cashtracker.alibard.tm.com.utils.enums.CurrensyType
+import cashtracker.alibard.tm.com.cashtracker.databinding.SpendingFragmentBinding
+import cashtracker.alibard.tm.com.db.entities.SpendingType
 import dagger.android.support.AndroidSupportInjection
+import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.spending_fragment.*
 import javax.inject.Inject
+import android.support.design.widget.BottomSheetBehavior
 
 
-class AddSpendingFragment : BaseFragment(),
+
+
+class AddSpendingFragment : BaseBindFragment<SpendingFragmentBinding, SpendingVIewModel>(),
         SpendingNavigator {
+    override fun fillData(it: List<SpendingType>) {
+
+        typeSpending.adapter = ArrayAdapter(context, R.layout.spinner_item, toListFromModel(it))
+    }
+
+    private fun toListFromModel(it: List<SpendingType>): Array<String> {
+        val namesList: MutableList<String> = mutableListOf()
+        it.forEach {
+            namesList.add(it.name)
+        }
+        return namesList.toTypedArray()
+    }
+
+
+    override fun onCreteViewModel(): SpendingVIewModel = ViewModelProviders.of(activity, viewModelFactory).get(SpendingVIewModel::class.java)
+
+    override val layoutId: Int
+        get() = R.layout.spending_fragment
+
+    override fun getBindingVariable(): Int = BR.spendingModel
+
+
     override fun onSuccess() {
         activity.onBackPressed()
     }
@@ -43,18 +68,12 @@ class AddSpendingFragment : BaseFragment(),
         super.onCreate(savedInstanceState)
     }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        return inflater.inflate(R.layout.spending_fragment, container, false)
-    }
-
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
-        spendingModel = ViewModelProviders.of(activity, viewModelFactory).get(SpendingVIewModel::class.java)
         spendingModel.navigator = this
-        typeSpending.adapter = ArrayAdapter(context, R.layout.spinner_item, CurrensyType.values())
+        spendingModel.fillData()
+
     }
-
-
 
 
     override fun onCreateOptionsMenu(menu: Menu?, inflater: MenuInflater?) {

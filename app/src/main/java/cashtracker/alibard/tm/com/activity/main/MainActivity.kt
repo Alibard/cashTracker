@@ -8,6 +8,7 @@ import android.arch.lifecycle.ViewModelProviders
 import android.content.res.Configuration
 import android.databinding.DataBindingUtil
 import android.os.Bundle
+import android.support.design.widget.BottomSheetBehavior
 import android.support.design.widget.NavigationView
 import android.support.v4.app.Fragment
 import android.support.v4.view.GravityCompat
@@ -15,12 +16,14 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.view.View
 import cashtracker.alibard.tm.com.base.BaseBindActivity
 import cashtracker.alibard.tm.com.cashtracker.BR
 import cashtracker.alibard.tm.com.cashtracker.R
 import cashtracker.alibard.tm.com.cashtracker.databinding.MainActivityBinding
 import cashtracker.alibard.tm.com.cashtracker.databinding.NavHeaderMain2Binding
 import cashtracker.alibard.tm.com.pojo.User
+import cashtracker.alibard.tm.com.test.TestFragment
 import cashtracker.alibard.tm.com.ui.home.MainFragment
 import cashtracker.alibard.tm.com.ui.settings.SettingsFragment
 import cashtracker.alibard.tm.com.utils.extention.loadBigImage
@@ -31,6 +34,7 @@ import dagger.android.AndroidInjector
 import dagger.android.DispatchingAndroidInjector
 import dagger.android.support.DaggerAppCompatActivity
 import dagger.android.support.HasSupportFragmentInjector
+import kotlinx.android.synthetic.main.bottom_sheet.*
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.nav_header_main2.view.*
 import javax.inject.Inject
@@ -70,7 +74,25 @@ class MainActivity : BaseBindActivity<MainActivityBinding,MainViewModel>(),
         findOrCreateViewFragment()
         subscribe()
 
-
+//        val bottomSheetBehavior = BottomSheetBehavior.from(bottom_sheet)
+//        bottomSheetBehavior.state = BottomSheetBehavior.STATE_COLLAPSED
+////        bottomSheetBehavior.state = BottomSheetBehavior.STATE_EXPANDED
+////        bottomSheetBehavior.state = BottomSheetBehavior.STATE_HIDDEN
+//        // set the peek height
+//        bottomSheetBehavior.peekHeight = 340
+//
+//        // set hideable or not
+//        bottomSheetBehavior.isHideable = false
+//        bottomSheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback(){
+//            override fun onSlide(bottomSheet: View, slideOffset: Float) {
+//
+//            }
+//
+//            override fun onStateChanged(bottomSheet: View, newState: Int) {
+//
+//            }
+//
+//        })
     }
 
     private fun subscribe() {
@@ -129,11 +151,11 @@ class MainActivity : BaseBindActivity<MainActivityBinding,MainViewModel>(),
                     replaceFragmentInActivity(SettingsFragment.newInstance(), R.id.mainContainer)
 
             }
-//            R.id.nav_test -> {
-//                if (!item.isChecked)
-//                    replaceFragmentInActivity(TestFragment.newInstance(), R.id.mainContainer)
-//
-//            }
+            R.id.nav_test -> {
+                if (!item.isChecked)
+                    replaceFragmentInActivity(TestFragment.newInstance(), R.id.mainContainer)
+
+            }
 
         }
         drawerLayout.closeDrawer(GravityCompat.START)

@@ -11,7 +11,7 @@ import javax.inject.Inject
 class SpendingVIewModel @Inject constructor() : BaseViewModel<SpendingNavigator>() {
     @Inject
     lateinit var repo: LocalRepository
-
+    val text = "1"
     fun saveSpending(price: String, currency: String, type: String, notice: String) {
         if (isValid(price, currency, type, notice)) {
             navigator?.showLoad()
@@ -39,5 +39,16 @@ class SpendingVIewModel @Inject constructor() : BaseViewModel<SpendingNavigator>
 
     private fun isValid(price: String, currency: String, type: String, notis: String): Boolean {
         return price.isNotEmpty() && currency.isNotEmpty() && type.isNotEmpty() && notis.isNotEmpty()
+    }
+
+    fun fillData() {
+        repo.getTypesSettings()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe({
+                    navigator?.fillData(it)
+                }
+                        ,{})
+
     }
 }
